@@ -46,12 +46,12 @@ const Register = () => {
           <input
             className="form-control"
             type="text"
-            {...register("name", { required: true })}
+            {...register("user", { required: true })}
             placeholder="Nombre"
             autoFocus
             id="user"
           />
-          {errors.name && <small className="text-danger alert">Este campo es requerido</small>}
+          {errors.user && <small className="text-danger alert">Este campo es requerido</small>}
         </div>
         <div className="form-group">
           <label htmlFor="password" className="form-label">

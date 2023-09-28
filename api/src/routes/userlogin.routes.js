@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
     }
   } else {
     //ahi me fijo por que no me acuerdo ahhh entiendo
-    return res.status(404).send(`algo esta mal`);
+    return res.status(404).json({ message: "Credenciales invalidas" });
   }
 });
 

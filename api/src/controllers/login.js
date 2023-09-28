@@ -1,6 +1,6 @@
-const { log } = require("console");
 const { Client } = require("pg");
-const readline = require("readline");
+// const { log } = require("console");
+// const readline = require("readline");
 
 const client = new Client({
   user: "postgres",
@@ -16,26 +16,26 @@ client
   .then(() => console.log("Conexión exitosa a la base de datos"))
   .catch((err) => console.error("Error al conectar a la base de datos:", err));
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+// });
 
-async function iniciarSesion() {
-  rl.question("Ingrese su nombre de usuario: ", async function (nombreUsuario) {
-    rl.question("Ingrese su contraseña: ", async function (password_user) {
-      const usuarioAutenticado = await loginUser(nombreUsuario, password_user);
-      if (usuarioAutenticado) {
-        console.log("Inicio de sesión exitoso:", usuarioAutenticado);
-      } else {
-        console.log("Nombre de usuario o contraseña incorrectos");
-      }
+// async function iniciarSesion() {
+//   rl.question("Ingrese su nombre de usuario: ", async function (nombreUsuario) {
+//     rl.question("Ingrese su contraseña: ", async function (password_user) {
+//       const usuarioAutenticado = await loginUser(nombreUsuario, password_user);
+//       if (usuarioAutenticado) {
+//         console.log("Inicio de sesión exitoso:", usuarioAutenticado);
+//       } else {
+//         console.log("Nombre de usuario o contraseña incorrectos");
+//       }
 
-      rl.close();
-      client.end();
-    });
-  });
-}
+//       rl.close();
+//       client.end();
+//     });
+//   });
+// }
 
 //iniciarSesion();
 

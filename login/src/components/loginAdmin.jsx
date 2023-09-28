@@ -3,7 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { environment } from "./../../env";
+import { environment } from "../../env";
 
 // Importa una hoja de estilos CSS llamada 'App.css'
 
@@ -23,13 +23,14 @@ export const Login = () => {
   const onSubmit = async (data) => {
     if (Object.keys(errors).length === 0) {
       try {
-        await axios.post(`${base_url}/users`, data);
+        await axios.post(`${base_url}/login`, data);
         // const response = await axios.post(`${base_url}/users`, data);
         // console.log(response);
 
-        navigate("/");
+        navigate("/doctores");
       } catch (error) {
         setErrorMessage(error.response.data.message);
+        console.log(error.response.data);
         reset();
       }
     }

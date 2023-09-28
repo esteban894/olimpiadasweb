@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"; // Importa las funciones 'React' y 'useState' desde sus respectivos módulos
-import { Login } from "./components/logindocotresadmin.jsx";
+import { Login } from "./components/loginAdmin.jsx";
 import DoctorsPage from "./components/paginadoctores.jsx";
 import Register from "./components/registrarse.jsx";
 // Importa una hoja de estilos CSS llamada 'App.css'
