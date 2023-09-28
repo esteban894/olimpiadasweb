@@ -1,89 +1,82 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './logindoctoresadmin.css';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import { environment } from "./../../env";
 
 // Importa una hoja de estilos CSS llamada 'App.css'
 
-const Login = () => {
-  // Define un componente funcional llamado 'App'
-  const [user, setUser] = useState(''); // Declara un estado 'user' con su función 'setter' 'setUser', inicializado como cadena vacía
-  const [password, setPassword] = useState(''); // Declara un estado 'password' con su función 'setter' 'setPassword', inicializado como cadena vacía// Declara un estado 'errorMessage' con su función 'setter' 'setErrorMessage', inicializado como cadena vacía
-  const [getOk, setgetOkey] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // Declara un estado 'getOk' con su función 'setter' 'setgetOkey', inicializado como cadena vacía
+export const Login = () => {
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleSubmit = async (e) => {
-    // Declara una función 'handleSubmit' que se ejecuta cuando el formulario se envía
-    e.preventDefault();
-    //console.log(user, password); // Imprime en la consola los valores actuales de 'user' y 'password'
+  const { base_url } = environment;
 
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/login/${user}/${password}`
-      );
-      // Realiza una solicitud GET a una URL formada con los valores de 'user' y 'password'
-      console.log(response.data); // Imprime en la consola los datos recibidos como respuesta
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-      if (response.data) {
-        setErrorMessage('');
-        setgetOkey(true); 
-        navigate('/doctores');// Si los datos de respuesta existen, establece 'getOk' como verdadero (true)
-      } else {
-        setErrorMessage(true);
-        setgetOkey(false); // Si los datos de respuesta no existen, establece un mensaje de error
+  const onSubmit = async (data) => {
+    if (Object.keys(errors).length === 0) {
+      try {
+        await axios.post(`${base_url}/users`, data);
+        // const response = await axios.post(`${base_url}/users`, data);
+        // console.log(response);
+
+        navigate("/");
+      } catch (error) {
+        setErrorMessage(error.response.data.message);
+        reset();
       }
-    } catch (error) {
-      console.error(error); // Si ocurre un error en la solicitud, imprime el error en la consola
-      setErrorMessage('Hubo un error al intentar iniciar sesión');
-      setgetOkey(false); // Establece un mensaje de error
     }
   };
 
   return (
-    <div className="container">
-      {/* Inicio del contenido del componente */}
-      <h2>Iniciar Sesion</h2> {/* Título del formulario */}
-      <form onSubmit={handleSubmit}>
-        {' '}
-        {/* Formulario que se envía cuando se hace clic en el botón */}
+    <div className="container bg-primary p-4 rounded col-md-6 mt-4">
+      <h2>Iniciar sesión</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-          {' '}
-          {/* Grupo de entrada para el nombre de usuario */}
-          <label>Usuario:</label>
+          <label htmlFor="user" className="form-label">
+            Nombre de usuario
+          </label>
           <input
-            className="a1"
             type="text"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
+            className="form-control"
+            id="name"
+            {...register("name", { required: true })}
+            placeholder="Nombre"
+            autoFocus
           />
+          {errors.name && <small className="text-danger alert">Este campo es requerido</small>}
         </div>
-        <div className="form-group1">
-          {' '}
-          {/* Grupo de entrada para la contraseña */}
-          <label>Contraseña:</label>
+        <div className="form-group">
+          <label htmlFor="password" className="form-label">
+            Contraseña
+          </label>
           <input
-            className="a2"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            className="form-control"
+            id="password"
+            placeholder="Contraseña"
+            {...register("password", { required: true })}
           />
+          {errors.password && <small className="text-danger alert">Este campo es requerido</small>}
         </div>
-        <button type="submit">Iniciar Sesion</button>{' '}
-        {/* Botón para enviar el formulario */}
+
+        <button type="submit" className="btn btn-success mt-3">
+          Iniciar sesión
+        </button>
       </form>
-      <p className="texto">
-        Si no tienes una cuenta{' '}
-        <a className="texto" href="pagina-de-inicio-de-sesion.html">
-          Registrate
-        </a>
-        .
-      </p>
-      {getOk && <p className="sucess">si esta registrado</p>}{' '}
-      {/* Muestra un mensaje de éxito si 'getOk' es verdadero */}
+
+      {errorMessage && (
+        <div className="alert alert-danger mt-3" role="alert">
+          Error al iniciar sesión: {errorMessage}
+        </div>
+      )}
     </div>
-    /* Fin del contenido del componente */
   );
 };
-
-export default Login; // Exporta el componente 'App' para que pueda ser utilizado en otros archivos

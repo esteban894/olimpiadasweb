@@ -3,15 +3,15 @@ const { loginUser } = require(`../controllers/login.js`);
 
 const router = Router();
 //para que funcione esto, debo ir al localhost:3000/login/usuario/contrasena
-router.get('/:user/:password', async (req, res) => {
-  //aca se dice que se reqquiere un "User", y un "password"
-  const { user, password } = req.params;
+router.post("/", async (req, res) => {
+  //aca se dice que se requiere un "User", y un "password"
+  const { user, password } = req.body;
   if (user && password) {
     //si se ingreso un user y un password
 
     const respuesta = await loginUser(user, password); //aca se le da a la funcion "LoginUser" los parametros que le dimos anteriormente
     //console.log(respuesta); //ahhh guarda lo que resulte de la comparacion de datos
-    if(!respuesta){
+    if (!respuesta) {
       return res.status(202).send(false);
     }
     if (respuesta.username === user) {
@@ -20,7 +20,7 @@ router.get('/:user/:password', async (req, res) => {
     }
   } else {
     //ahi me fijo por que no me acuerdo ahhh entiendo
-    return res.status(404).send(`algo ewsta mal`);
+    return res.status(404).send(`algo esta mal`);
   }
 });
 

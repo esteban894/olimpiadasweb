@@ -3,8 +3,8 @@ const { registerUser } = require(`../controllers/login.js`);
 
 const router = Router();
 
-router.post(`/:user/:password`, async (req, res) => {
-  const { user, password } = req.params;
+router.post(`/`, async (req, res) => {
+  const { user, password } = req.body;
   if (user && password) {
     const respuesta = await registerUser(user, password);
     console.log(respuesta);
@@ -14,7 +14,7 @@ router.post(`/:user/:password`, async (req, res) => {
     }
   } else {
     //ahi me fijo por que no me acuerdo ahhh entiendo
-    return res.status(404).send(`algo ewsta mal`);
+    return res.status(404).send(`algo esta mal`);
   }
 });
 
