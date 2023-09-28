@@ -1,0 +1,67 @@
+body {
+    color: #fff;
+    background-image: linear-gradient(135deg, #0212f8, #1a1a1b);
+    background-size:500%; /* Aumenta el tamaño del fondo para dar espacio a la animación */
+    position: relative;
+    animation: cambioDeFondo 10s linear infinite; /* Aplicar la animación */
+  }
+  
+  @keyframes cambioDeFondo {
+    0% {
+      background-position: 0% 50%;
+    }
+  
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .grid-container td
+  {
+    background-color: #0074e4; /* Color de fondo azul */
+    color: #fff; /* Color de texto blanco */
+  }
+  
+  .grid-container th {
+    background-color: #032e57; /* Color de fondo azul */
+    color: #fff; /* Color de texto blanco */
+  }
+  
+  /* Estilos para el contenedor que centra la tabla */
+  .center-container {
+    position: relative;
+    top: 50%;
+    left: 35%; /* Esto centra verticalmente en la página completa */
+  }
+  
+  /* Estilos para la tabla */
+  .grid-container {
+    width: 800px;
+    height: 300px;
+  }
+  
+  /* Estilos para las celdas de encabezado */
+  .grid-header {
+    background-color: #0074e4;
+    color: #fff;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  /* Estilos para las celdas de datos */
+  .grid-row {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  /* Estilos para alternar el color de fondo de las filas */
+  .grid-row:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
