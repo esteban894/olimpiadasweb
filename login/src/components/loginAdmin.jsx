@@ -24,8 +24,8 @@ export const Login = () => {
     if (Object.keys(errors).length === 0) {
       try {
         await axios.post(`${base_url}/login`, data);
-        // const response = await axios.post(`${base_url}/users`, data);
-        // console.log(response);
+        const response = await axios.post(`${base_url}/users`, data);
+        console.log(response);
 
         navigate("/doctores");
       } catch (error) {

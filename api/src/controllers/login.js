@@ -78,7 +78,10 @@ module.exports = {
       return false;
     }
   },
+
 };
+
+
 
 //Bueno, aca se impoorta toda esta funcion
 //esta es la funcion para anadir los datos a la base de datos
