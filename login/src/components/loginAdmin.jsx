@@ -1,7 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import './index.css';
 
 import { environment } from "../../env";
 
@@ -38,6 +39,18 @@ export const Login = () => {
 
   return (
     <div className="container bg-primary p-4 rounded col-md-6 mt-4">
+      <nav>
+      <ul>
+        <li>
+          <Link to="/">Iniciar Sesion</Link>
+        </li>
+
+        <li>
+          <Link to="/register">Registrarse</Link>
+        </li>
+        
+      </ul>
+    </nav>
       <h2>Iniciar sesión</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">

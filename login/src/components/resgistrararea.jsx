@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { environment } from "./../../env";
 
-const Register = () => {
+const NewArea = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const { base_url } = environment;
@@ -37,24 +37,30 @@ const Register = () => {
 
   return (
     <div className="container bg-primary p-4 rounded col-md-6 mt-4">
-
       <nav>
       <ul>
         <li>
-          <Link to="/">Iniciar Sesion</Link>
+          <Link to="/">Crear nuevo Doctor</Link>
         </li>
 
         <li>
-          <Link to="/register">Registrarse</Link>
+          <Link to="/nuevaArea">Crear nueva Area</Link>
+        </li>
+
+        <li>
+          <Link to="/pacientes">Pacientes</Link>
         </li>
         
+        <li>
+          <Link to="/alertas">Alertas</Link>
+        </li>
       </ul>
     </nav>
-      <h2>Registrarse</h2>
+      <h2> Nueva Area</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <label htmlFor="user" className="form-label">
-            Usuario
+            Nombre del Area
           </label>
           <input
             className="form-control"
@@ -68,7 +74,7 @@ const Register = () => {
         </div>
         <div className="form-group">
           <label htmlFor="password" className="form-label">
-            Contraseña
+            Descripcion
           </label>
           <input
             type="password"
@@ -80,15 +86,9 @@ const Register = () => {
           {errors.password && <small className="text-danger alert">Este campo es requerido</small>}
         </div>
         <button type="submit" className="btn btn-success mt-3">
-          Registrarse
+          Crear Nueva Area
         </button>
       </form>
-      <div>
-        Si ya tienes una cuenta{" "}
-        <Link to="/" className="link-light">
-          Inicia Sesion
-        </Link>
-      </div>
       {errorMessage && (
         <div className="alert alert-danger mt-3" role="alert">
           Error al iniciar sesión: {errorMessage}
@@ -98,4 +98,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default NewArea;

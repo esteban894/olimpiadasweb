@@ -1,0 +1,32 @@
+/* Estilos para la tabla de pacientes */
+.center-container {
+  text-align: center;
+}
+
+h1 {
+  color: #0074cc; /* Azul medio oscuro para el título */
+}
+
+table.grid-container {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #000; /* Fondo negro para los encabezados */
+  color: #fff; /* Color de texto blanco para los encabezados */
+  border: 1px solid #000; /* Bordes negros para los encabezados */
+  padding: 8px;
+  text-align: center;
+}
+
+td {
+  border: 1px solid #000; /* Bordes negros para las celdas */
+  padding: 8px;
+  text-align: center;
+}
+
+/* Estilos para las filas impares */
+tr.grid-row:nth-child(odd) {
+  background-color: #f2f2f2; /* Fondo gris claro para filas impares */
+}
