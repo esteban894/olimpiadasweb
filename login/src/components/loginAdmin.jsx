@@ -48,7 +48,7 @@ export const Login = () => {
             type="text"
             className="form-control"
             id="name"
-            {...register("name", { required: true })}
+            {...register("user", { required: true })}
             placeholder="Nombre"
             autoFocus
           />

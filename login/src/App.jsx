@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom"; // Importa las funciones 'React' y 'useState' desde sus respectivos módulos
 import { Login } from "./components/loginAdmin.jsx";
+import Register from "./components/registrarse.jsx";
 // Importa una hoja de estilos CSS llamada 'App.css'
 import DoctorsPage from "./components/paginadoctores.jsx";
 import "bootstrap/dist/css/bootstrap.css";
@@ -9,8 +10,9 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/doctores" element={<DoctorsPage />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
+    
   );
 };
 
