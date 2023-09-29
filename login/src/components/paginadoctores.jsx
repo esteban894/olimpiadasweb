@@ -1,37 +1,38 @@
 import { useState } from "react"; // Importa las funciones 'React' y 'useState' desde sus respectivos módulos
 import axios from "axios";
 
-// Importa una hoja de estilos CSS llamada 'App.css'
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import { environment } from "./../../env";
 
 const DoctorsPage = () => {
   // Define un componente funcional llamado 'App'
-  const [user, setUser] = useState(""); // Declara un estado 'user' con su función 'setter' 'setUser', inicializado como cadena vacía
-  const [password, setPassword] = useState(""); // Declara un estado 'password' con su función 'setter' 'setPassword', inicializado como cadena vacía
-  const [errorMessage, setErrorMessage] = useState(""); // Declara un estado 'errorMessage' con su función 'setter' 'setErrorMessage', inicializado como cadena vacía
-  const [getOk, setgetOkey] = useState("");
-  const [Ficha, setFicha] = useState(""); // Declara un estado 'getOk' con su función 'setter' 'setgetOkey', inicializado como cadena vacía
 
-  const handleSubmit = async (e) => {
-    // Declara una función 'handleSubmit' que se ejecuta cuando el formulario se envía
-    e.preventDefault(); // Previene el comportamiento de envío predeterminado del formulario
-    //console.log(user, password); // Imprime en la consola los valores actuales de 'user' y 'password'
+  const [errorMessage, setErrorMessage] = useState(null);
 
-    try {
-      const response = await axios.post(`http://localhost:3000/login/${user}/${password}`);
-      //y aca de la misma forma que en el inicio de sesion, pero use el metodo post para que reciba estos parametros
-      console.log(response.data); // Imprime en la consola los datos recibidos como respuesta
+  const { base_url } = environment;
 
-      if (response.data) {
-        setErrorMessage("");
-        setgetOkey(true); // Si los datos de respuesta existen, establece 'getOk' como verdadero (true)
-      } else {
-        setErrorMessage(true);
-        setgetOkey(false); // Si los datos de respuesta no existen, establece un mensaje de error
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    if (Object.keys(errors).length === 0) {
+      try {
+        await axios.post(`${base_url}/doctores`, data);
+        // const response = await axios.post(`${base_url}/users`, data);
+        // console.log(response);
+
+        navigate("/doctores");
+      } catch (error) {
+        setErrorMessage(error.response.data.message);
+        reset();
       }
-    } catch (error) {
-      console.error(error); // Si ocurre un error en la solicitud, imprime el error en la consola
-      setErrorMessage("Hubo un error al intentar iniciar sesión");
-      setgetOkey(false); // Establece un mensaje de error
     }
   };
 
@@ -40,51 +41,61 @@ const DoctorsPage = () => {
       {" "}
       {/* Inicio del contenido del componente */}
       <h2>Nuevo Doctor</h2> {/* Título del formulario */}
-      <form onSubmit={handleSubmit}>
-        {" "}
-        {/* Formulario que se envía cuando se hace clic en el botón */}
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-          {" "}
-          {/* Grupo de entrada para el nombre de usuario */}
-          <label className="form-label">Nombre:</label>
+          <label htmlFor="doctorName" className="form-label">
+            Nombre
+          </label>
           <input
             className="form-control"
             type="text"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
+            {...register("doctorName", { required: true })}
+            placeholder="Nombre del doctor"
+            autoFocus
+            id="doctorName"
           />
+          {errors.doctorName && (
+            <small className="text-danger alert">Este campo es requerido</small>
+          )}
+        </div>
+        <div className="form-group">
+          <label htmlFor="doctorDni" className="form-label">
+            Dni
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            {...register("doctorDni", { required: true })}
+            placeholder="37912571"
+            id="doctorDni"
+          />
+          {errors.doctorDni && <small className="text-danger alert">Este campo es requerido</small>}
         </div>
         <div className="form-group">
           {" "}
           {/* Grupo de entrada para la contraseña */}
-          <label className="form-label">Dni:</label>
+          <label htmlFor="password" className="form-label">
+            Contraseña
+          </label>
           <input
             className="form-control"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...register("password", { required: true })}
+            placeholder="..."
+            id="password"
           />
-        </div>
-        <div className="form-group">
-          {" "}
-          {/* Grupo de entrada para la contraseña */}
-          <label className="form-label">Ficha del Doctor:</label>
-          <input
-            className="form-control"
-            type="text"
-            value={Ficha}
-            onChange={(e) => setFicha(e.target.value)}
-          />
+          {errors.password && <small className="text-danger alert">Este campo es requerido</small>}
         </div>
         <button type="submit" className="btn btn-success mt-3">
           Registrarse
-        </button>{" "}
+        </button>
         {/* Botón para enviar el formulario */}
       </form>
-      {errorMessage && <p className="error-message">no se encuentra tu usuario</p>}{" "}
-      {/* Muestra el mensaje de error si existe */}
-      {getOk && <p className="sucess">si esta registrado</p>}{" "}
-      {/* Muestra un mensaje de éxito si 'getOk' es verdadero */}
+      {errorMessage && (
+        <div className="alert alert-danger mt-3" role="alert">
+          Error al iniciar sesión: {errorMessage}
+        </div>
+      )}
     </div>
     /* Fin del contenido del componente */
   );
