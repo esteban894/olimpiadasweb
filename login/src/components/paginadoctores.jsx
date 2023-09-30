@@ -38,29 +38,25 @@ const DoctorsPage = () => {
 
   return (
     <div className="container bg-primary p-4 rounded col-md-6 mt-4">
-   
-   <nav>
-      <ul>
-        <li>
-          <Link to="/">Crear nuevo Doctor</Link>
-        </li>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Crear nuevo Doctor</Link>
+          </li>
 
-        <li>
-          <Link to="/nuevaArea">Crear nueva Area</Link>
-        </li>
+          <li>
+            <Link to="/nuevaArea">Crear nueva Area</Link>
+          </li>
 
-        <li>
-          <Link to="/pacientes">Pacientes</Link>
-        </li>
+          <li>
+            <Link to="/pacientes">Pacientes</Link>
+          </li>
 
-        <li>
-          <Link to="/alertas">Alertas</Link>
-        </li>
-
-       
-        
-      </ul>
-    </nav>
+          <li>
+            <Link to="/alertas">Alertas</Link>
+          </li>
+        </ul>
+      </nav>
       {/* Inicio del contenido del componente */}
       <h2>Nuevo Doctor</h2> {/* Título del formulario */}
       <form onSubmit={handleSubmit}>
