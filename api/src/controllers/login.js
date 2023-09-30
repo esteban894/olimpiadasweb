@@ -78,10 +78,22 @@ module.exports = {
       return false;
     }
   },
+  registerDoctor: async (doctorName, doctorDni, password) => {
+    try {
+      const query = "INSERT INTO doctores (name, dni, password) VALUES ($1, $2, $3)";
+      const result = await client.query(query, [doctorName, doctorDni, password]);
 
+      if (result.rowCount === 1) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error al intentar registrar al médico:", error);
+      return false;
+    }
+  },
 };
-
-
 
 //Bueno, aca se impoorta toda esta funcion
 //esta es la funcion para anadir los datos a la base de datos
